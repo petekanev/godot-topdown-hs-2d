@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://cr1mtsffmrpoa"]
+[gd_scene load_steps=21 format=3 uid="uid://cr1mtsffmrpoa"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_4qgga"]
 [ext_resource type="Texture2D" uid="uid://bsv3fl1cmaysm" path="res://assets/mystic_woods/sprites/tilesets/decor_8x8.png" id="1_qby8r"]
 [ext_resource type="Texture2D" uid="uid://bg613556wyw1u" path="res://assets/mystic_woods/sprites/tilesets/water_decorations.png" id="2_8nal5"]
 [ext_resource type="Texture2D" uid="uid://5t12vy2jspgi" path="res://assets/mystic_woods/sprites/tilesets/water_lillies.png" id="3_320ga"]
@@ -8,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dn1xvojy7fppe" path="res://assets/mystic_woods/sprites/tilesets/grass.png" id="6_641ot"]
 [ext_resource type="Texture2D" uid="uid://d08uwc6lo1su1" path="res://assets/mystic_woods/sprites/tilesets/plains.png" id="7_am0pe"]
 [ext_resource type="PackedScene" uid="uid://bor7ed5uvupuo" path="res://player.tscn" id="8_mjme2"]
+[ext_resource type="PackedScene" uid="uid://fqhn0jhm52m2" path="res://enemy.tscn" id="9_rctt6"]
+[ext_resource type="PackedScene" uid="uid://dtbchah8gons0" path="res://enemy_spawner.tscn" id="10_lgjfk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1rc80"]
 texture = ExtResource("1_qby8r")
@@ -668,7 +671,14 @@ sources/11 = SubResource("TileSetAtlasSource_1oe3t")
 sources/12 = SubResource("TileSetAtlasSource_44jkt")
 sources/13 = SubResource("TileSetAtlasSource_mc7go")
 
+[sub_resource type="Curve2D" id="Curve2D_e3lp2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3696, 2136, 0, 0, 0, 0, 3232, 2088, 0, 0, 0, 0, 2464, 1720, 0, 0, 0, 0, 1952, 1584, 0, 0, 0, 0, 1792, 1616, 0, 0, 0, 0, 1472, 2232, 0, 0, 0, 0, 3696, 2136)
+}
+point_count = 7
+
 [node name="Main" type="Node2D"]
+script = ExtResource("1_4qgga")
 
 [node name="World" type="TileMap" parent="."]
 position = Vector2(-104, 72)
@@ -688,7 +698,6 @@ layer_2/tile_data = PackedInt32Array(4391031, 327684, 5, 4325495, 65540, 10, 425
 position = Vector2(877, 586)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(1.3, 1.3)
 limit_left = -100
 limit_top = -100
 limit_right = 3940
@@ -697,3 +706,23 @@ limit_smoothed = true
 position_smoothing_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="Enemy" parent="." instance=ExtResource("9_rctt6")]
+position = Vector2(784, 592)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("10_lgjfk")]
+position = Vector2(136, 368)
+rotation = 0.459143
+
+[node name="EnemySpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_e3lp2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemySpawnPath"]
+position = Vector2(3696, 2136)
+rotation = -3.03851
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
