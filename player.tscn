@@ -323,6 +323,7 @@ animations = [{
 size = Vector2(32, 48)
 
 [node name="player" type="CharacterBody2D"]
+z_index = 100
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_osapj")
