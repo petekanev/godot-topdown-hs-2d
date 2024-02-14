@@ -175,7 +175,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_uy8i7")
 }],
 "loop": true,
-"name": &"attack",
+"name": &"attacking",
 "speed": 5.0
 }, {
 "frames": [{
@@ -192,7 +192,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_m0cvd")
 }],
 "loop": true,
-"name": &"attack_down",
+"name": &"attacking_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -209,8 +209,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_4brqa")
 }],
 "loop": true,
-"name": &"attack_up",
-"speed": 20.0
+"name": &"attacking_up",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -222,7 +222,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ncnsj")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 3.0
 }, {
@@ -322,7 +322,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmxr6"]
 size = Vector2(32, 48)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["player"]]
 z_index = 100
 collision_layer = 2
 collision_mask = 5
@@ -333,7 +333,7 @@ metadata/_edit_group_ = true
 position = Vector2(0, -16)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_l27gc")
-animation = &"walking_down"
+animation = &"attacking_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cmxr6")

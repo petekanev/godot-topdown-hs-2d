@@ -676,7 +676,6 @@ rotation = 0.459143
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
 
 [node name="EnemySpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_l8505")

@@ -162,7 +162,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ijov"]
 size = Vector2(32, 32)
 
-[node name="enemy" type="CharacterBody2D"]
+[node name="enemy" type="CharacterBody2D" groups=["enemy"]]
 z_index = 99
 collision_layer = 4
 collision_mask = 3
@@ -172,13 +172,14 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6o32t")
-animation = &"walking"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7ijov")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
+radius = 12.0
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 debug_path_custom_point_size = 10.0
