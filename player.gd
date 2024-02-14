@@ -39,6 +39,6 @@ func _physics_process(delta):
 	move_and_slide()
 	# clamp position to be within world bounds
 	position = position.clamp(Vector2.ZERO, MAP_BOUNDS)
-	
+
 	# animate
 	animate_movement()

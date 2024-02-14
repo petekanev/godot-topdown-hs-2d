@@ -12,10 +12,6 @@ func _process(delta):
 
 
 func _on_enemy_timer_timeout():
-	# get location 
-	# get player location
-	# 
-	
 	var enemy_spawn_location = $EnemySpawnPath/PathFollow2D
 	enemy_spawn_location.progress_ratio = randf()
 	

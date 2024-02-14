@@ -12,9 +12,7 @@ func get_enemy_instance(spawn_position: Vector2, target_position: Vector2) -> No
 	var enemy_instance = enemy_scene.instantiate()
 
 	enemy_instance.position = spawn_position
+	
+	enemy_instance.set_target_position(target_position)
 
-	var direction = enemy_instance.position.direction_to(target_position)
-	
-	enemy_instance.velocity = direction * SPEED
-	
 	return enemy_instance
