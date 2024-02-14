@@ -27,6 +27,7 @@ func process_directional_input():
 	var input_direction = Input.get_vector("Left", "Right", "Up", "Down")
 	velocity = input_direction * SPEED
 
+
 func animate_footfalls():
 	if velocity.length() != 0:
 		var input_direction = Input.get_vector("Left", "Right", "Up", "Down")
@@ -52,9 +53,11 @@ func get_next_animation() -> String:
 
 	if is_attacking:
 		animation = "attacking"
+		# the character is facing more left or right than up or down
+		var is_horizontally_aligned = abs(attack_direction.x) > abs(attack_direction.y)
 		var attacking_left = attack_direction.x < 0
-		var attacking_up = attack_direction.y < 0
-		var attacking_down = attack_direction.y > 0
+		var attacking_up = !is_horizontally_aligned and attack_direction.y < 0
+		var attacking_down = !is_horizontally_aligned and attack_direction.y > 0
 		
 		# player is facing left
 		$AnimatedSprite2D.flip_h = attacking_left
