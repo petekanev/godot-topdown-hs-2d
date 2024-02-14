@@ -37,9 +37,9 @@ func animate_movement():
 		footfalls_instance.position.x -= input_direction.x * footfalls_distance_behind
 		footfalls_instance.position.y -= input_direction.y * footfalls_distance_behind
 		
-		# if walking horizontally, offset the footfall to be lower
+		# if walking horizontally, offset the footfall to be lower relative to the player
 		if input_direction.x != 0:
-			footfalls_instance.position.y += 15
+			footfalls_instance.position.y += 10
 		
 		if can_cast_footfalls:
 			get_tree().get_root().add_child(footfalls_instance)
