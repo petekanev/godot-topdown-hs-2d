@@ -7,6 +7,8 @@ extends CharacterBody2D
 var footfalls = preload("res://player_footfalls.tscn")
 var projectile = preload("res://player_projectile.tscn")
 
+@onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
+
 var walking_left: bool = false
 var walking_up: bool = false
 var is_attacking: bool = false
@@ -25,21 +27,8 @@ func process_directional_input():
 	var input_direction = Input.get_vector("Left", "Right", "Up", "Down")
 	velocity = input_direction * SPEED
 
-func animate_movement():
-	var animation = "walking"
-	
+func animate_footfalls():
 	if velocity.length() != 0:
-		walking_left = velocity.x < 0
-		walking_up = velocity.y < 0
-		var walking_down = velocity.y > 0
-		
-		$AnimatedSprite2D.flip_h = walking_left
-
-		if walking_up:
-			animation = "walking_up"
-		elif walking_down:
-			animation = "walking_down"
-			
 		var input_direction = Input.get_vector("Left", "Right", "Up", "Down")
 		var footfalls_instance = footfalls.instantiate()
 		footfalls_instance.position = global_position
@@ -55,14 +44,14 @@ func animate_movement():
 			can_cast_footfalls = false
 			await get_tree().create_timer(footfalls_rate).timeout
 			can_cast_footfalls = true
-			
-		$AnimatedSprite2D.animation = animation
-	else:
-		$AnimatedSprite2D.animation = "idle"
 
-func animate_attacks():
+
+func get_next_animation() -> String:
+	var animation = "idle"
+	var is_moving = velocity.length() != 0
+
 	if is_attacking:
-		var animation = "attacking"
+		animation = "attacking"
 		var attacking_left = attack_direction.x < 0
 		var attacking_up = attack_direction.y < 0
 		var attacking_down = attack_direction.y > 0
@@ -73,17 +62,31 @@ func animate_attacks():
 			animation = "attacking_up"
 		elif attacking_down:
 			animation = "attacking_down"
+	elif is_moving:
+		animation = "walking"
+		walking_left = velocity.x < 0
+		walking_up = velocity.y < 0
+		var walking_down = velocity.y > 0
 		
-		$AnimatedSprite2D.animation = animation
+		$AnimatedSprite2D.flip_h = walking_left
+		if walking_up:
+			animation = "walking_up"
+		elif walking_down:
+			animation = "walking_down"
+		
+	return animation
 
-func _ready():
-	$AnimatedSprite2D.animation = "idle"
-	$AnimatedSprite2D.play()
 
-func _process(delta):
-	if Input.is_action_pressed("Shoot") and can_fire_projectile:
-		is_attacking = true
+func animate_movement():
+	var animation = get_next_animation()
+	if animated_sprite.animation != animation:
+		animated_sprite.animation = animation
 
+	animate_footfalls()
+
+
+func fire_projectile():
+	if can_fire_projectile:
 		var mouse_position = get_global_mouse_position()
 		var projectile_instance = projectile.instantiate() as RigidBody2D
 		
@@ -103,18 +106,23 @@ func _process(delta):
 		can_fire_projectile = false
 		await get_tree().create_timer(projectile_fire_rate).timeout
 		can_fire_projectile = true
-	else:
-		if is_attacking:
-			# "stop" attacking to allow the animation to run
-			await get_tree().create_timer(1).timeout
-			prints("reset is_attacking")
-			is_attacking = false
-	
-	# animate
-	animate_movement()
-	animate_attacks()
 
-func _physics_process(delta):
+
+func _ready():
+	$AnimatedSprite2D.animation = "idle"
+	$AnimatedSprite2D.play()
+
+func _process(_delta):
+	if Input.is_action_pressed("Shoot"):
+		is_attacking = true
+		
+		fire_projectile()
+	elif is_attacking:
+		is_attacking = false
+	
+	animate_movement()
+
+func _physics_process(_delta):
 	# move
 	process_directional_input()
 	move_and_slide()

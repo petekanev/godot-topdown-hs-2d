@@ -661,6 +661,7 @@ navigation_polygon = SubResource("NavigationPolygon_ysmkq")
 position = Vector2(712, 624)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
 limit_left = -100
 limit_top = -100
 limit_right = 3940
