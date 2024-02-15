@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://bujhasgkykam"]
+
+[ext_resource type="Script" path="res://effects/projectile_explosion.gd" id="1_1aijp"]
+[ext_resource type="Texture2D" uid="uid://xkthjw8slpan" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle1.png" id="2_7pn1v"]
+[ext_resource type="Texture2D" uid="uid://cpyd06m0dkumx" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle2.png" id="3_a5q6a"]
+[ext_resource type="Texture2D" uid="uid://b14c5bmcr5p8n" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle3.png" id="4_gutgb"]
+[ext_resource type="Texture2D" uid="uid://cumed2ts0p1k" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle4.png" id="5_mwgjg"]
+[ext_resource type="Texture2D" uid="uid://cm3xtd0gelya2" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle5.png" id="6_dptxn"]
+[ext_resource type="Texture2D" uid="uid://cucc5ij8var0t" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle6.png" id="7_xvirp"]
+[ext_resource type="Texture2D" uid="uid://hv1asdk1ufsf" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle7.png" id="8_bhm2r"]
+[ext_resource type="Texture2D" uid="uid://c8jxj3wqb8pxt" path="res://assets/explosion_sprites/PNG/Explosion_blue_circle/Explosion_blue_circle8.png" id="9_5l5ga"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h6j2g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7pn1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a5q6a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gutgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mwgjg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dptxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xvirp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bhm2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5l5ga")
+}],
+"loop": false,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovuje"]
+size = Vector2(48, 48)
+
+[node name="ProjectileExplosion" type="Area2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_1aijp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 120
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_h6j2g")
+speed_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ovuje")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_animation_finished"]

@@ -4,7 +4,7 @@ var PROJECTILE_LIFETIME_SECONDS: float = 1.5
 const PROJECTILE_DECAY_INTERVAL: float = 0.1
 const PROJECTILE_DECAY_STEP := Vector2(0.05, 0.05)
 
-var explosion = preload("res://projectile_explosion.tscn")
+var explosion = preload("res://effects/projectile_explosion.tscn")
 
 @onready var decay_timer := $DecayTimer as Timer
 
@@ -13,6 +13,7 @@ var projectile_scale := Vector2(1.0, 1.0)
 # defines who emited the projectile - player or enemy object
 # in this case as a player_projectile - we can assume it's the player
 var origin: Character
+var body_hit: Character
 
 
 func _ready():
@@ -28,17 +29,21 @@ func _process(delta):
 
 func _on_body_entered(body: Node2D):
 	if !body.is_in_group("player"):
-		explode_projectile()
-		
 		if body.is_in_group("enemy"):
 			var character = body as Character
 			character.on_hit_by_character(origin)
+			
+			# register who is hit so they don't receive splash damage from explosion
+			body_hit = character
 
-		queue_free()
+	explode_projectile()
 
 
 func explode_projectile():
 	var explosion_instance = explosion.instantiate()
+	explosion_instance.origin = origin
+	explosion_instance.excluded_bodies = [body_hit]
+
 	explosion_instance.position = get_global_position()
 	get_tree().get_root().add_child(explosion_instance)
 

@@ -2,7 +2,7 @@ extends Character
 
 @export var MAP_BOUNDS = Vector2(1920*2, 1080*2)
 
-const ATTACK_DMG_MIN: int = 5
+const ATTACK_DMG_MIN: int = 15
 const ATTACK_DMG_MAX: int = 25
 const ATTACK_RATE: float = 0.4
 
@@ -10,8 +10,8 @@ const HEALTH_MAX = 100
 
 const SPEED = 300.0
 
-var footfalls = preload("res://player_footfalls.tscn")
-var projectile = preload("res://player_projectile.tscn")
+var footfalls = preload("res://effects/player_footfalls.tscn")
+var projectile = preload("res://effects/player_projectile.tscn")
 
 @onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 

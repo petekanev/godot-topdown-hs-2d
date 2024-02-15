@@ -6,7 +6,7 @@ const BODY_LIFETIME_SECONDS = 2
 
 @onready var player := $"../Player"
 @onready var nav_agent := $NavigationAgent2D
-@onready var health_bar := $HealthBar as TextureProgressBar
+@onready var health_bar := $HealthBar as ProgressBar
 @onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 @onready var collission_shape := $CollisionShape2D as CollisionShape2D
 

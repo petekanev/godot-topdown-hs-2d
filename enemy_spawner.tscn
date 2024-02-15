@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtbchah8gons0"]
 
 [ext_resource type="Script" path="res://enemySpawner.gd" id="1_x2hun"]
-[ext_resource type="PackedScene" uid="uid://fqhn0jhm52m2" path="res://enemy.tscn" id="2_6o6vn"]
+[ext_resource type="PackedScene" uid="uid://fqhn0jhm52m2" path="res://characters/enemy.tscn" id="2_6o6vn"]
 
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_x2hun")

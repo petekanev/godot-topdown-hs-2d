@@ -1,22 +1,22 @@
 [gd_scene load_steps=8 format=3 uid="uid://3kimr6ixi487"]
 
-[ext_resource type="Texture2D" uid="uid://cgbn44pb1hiks" path="res://assets/mystic_woods/sprites/particles/dust_particles_01.png" id="1_i36r6"]
-[ext_resource type="Script" path="res://player_footfalls.gd" id="2_3q44c"]
+[ext_resource type="Texture2D" uid="uid://cgbn44pb1hiks" path="res://assets/mystic_woods/sprites/particles/dust_particles_01.png" id="1_cmpb1"]
+[ext_resource type="Script" path="res://effects/player_footfalls.gd" id="2_8c7ye"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ri3sp"]
-atlas = ExtResource("1_i36r6")
+atlas = ExtResource("1_cmpb1")
 region = Rect2(0, 0, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ij26v"]
-atlas = ExtResource("1_i36r6")
+atlas = ExtResource("1_cmpb1")
 region = Rect2(12, 0, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh54n"]
-atlas = ExtResource("1_i36r6")
+atlas = ExtResource("1_cmpb1")
 region = Rect2(24, 0, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b5gx2"]
-atlas = ExtResource("1_i36r6")
+atlas = ExtResource("1_cmpb1")
 region = Rect2(36, 0, 12, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y6hli"]
@@ -44,7 +44,7 @@ position = Vector2(0, 16)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_y6hli")
 autoplay = "default"
-script = ExtResource("2_3q44c")
+script = ExtResource("2_8c7ye")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="animation_looped" from="." to="." method="_on_animation_looped"]

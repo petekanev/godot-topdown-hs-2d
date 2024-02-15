@@ -40,8 +40,8 @@ func _is_crit(crit_chance: int) -> bool:
 		return number >= 1 and number <= crit_chance
 
 
-func _on_hit_by_character(attacker: Character):
-	var damage = 0
+func _compute_hit_damage_by_character(attacker: Character) -> int:
+	var damage := 0.0
 	
 	if attacker.attack_damage > 0:
 		damage = attacker.attack_damage
@@ -50,8 +50,14 @@ func _on_hit_by_character(attacker: Character):
 		
 	if attacker.attack_crit_chance_percentage > 0 && _is_crit(attacker.attack_crit_chance_percentage):
 		damage += damage * attacker.attack_crit_chance_dmg
-		
-	on_hit(roundi(damage))
+	
+	return roundi(damage)
+
+
+func _on_hit_by_character(attacker: Character):
+	var damage = _compute_hit_damage_by_character(attacker)
+
+	on_hit(damage)
 
 
 func _on_death():
@@ -61,7 +67,6 @@ func _on_death():
 func _ready():
 	rng.randomize()
 
-	pass
 
 
 func on_hit(damage: int):

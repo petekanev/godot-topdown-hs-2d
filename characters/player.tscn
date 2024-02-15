@@ -1,7 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://bor7ed5uvupuo"]
 
 [ext_resource type="Texture2D" uid="uid://cja3v2ksso3co" path="res://assets/mystic_woods/sprites/characters/player.png" id="1_8kwo7"]
-[ext_resource type="Script" path="res://player.gd" id="1_osapj"]
+[ext_resource type="Script" path="res://characters/player.gd" id="1_osapj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynre4"]
 atlas = ExtResource("1_8kwo7")
@@ -322,7 +322,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmxr6"]
 size = Vector2(32, 48)
 
-[node name="player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 100
 collision_layer = 2
 collision_mask = 5

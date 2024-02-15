@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://4h28pml85y5s" path="res://assets/mystic_woods/sprites/tilesets/fences.png" id="5_gfjov"]
 [ext_resource type="Texture2D" uid="uid://dn1xvojy7fppe" path="res://assets/mystic_woods/sprites/tilesets/grass.png" id="6_641ot"]
 [ext_resource type="Texture2D" uid="uid://d08uwc6lo1su1" path="res://assets/mystic_woods/sprites/tilesets/plains.png" id="7_am0pe"]
-[ext_resource type="PackedScene" uid="uid://bor7ed5uvupuo" path="res://player.tscn" id="8_mjme2"]
+[ext_resource type="PackedScene" uid="uid://bor7ed5uvupuo" path="res://characters/player.tscn" id="8_mjme2"]
 [ext_resource type="PackedScene" uid="uid://dtbchah8gons0" path="res://enemy_spawner.tscn" id="10_lgjfk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1rc80"]
@@ -677,7 +677,7 @@ rotation = 0.459143
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 2.0
-one_shot = true
+autostart = true
 
 [node name="EnemySpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_l8505")

@@ -1,8 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://fqhn0jhm52m2"]
+[gd_scene load_steps=26 format=3 uid="uid://fqhn0jhm52m2"]
 
-[ext_resource type="Script" path="res://enemy.gd" id="1_5t7e2"]
+[ext_resource type="Script" path="res://characters/enemy.gd" id="1_5t7e2"]
 [ext_resource type="Texture2D" uid="uid://chy42frbjoq8q" path="res://assets/mystic_woods/sprites/characters/slime.png" id="1_f5v50"]
-[ext_resource type="Texture2D" uid="uid://bs3061yopod51" path="res://assets/pixel_ui_pack/07.png" id="3_3pvrd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cecl4"]
 atlas = ExtResource("1_f5v50")
@@ -163,17 +162,29 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ijov"]
 size = Vector2(32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w626n"]
-atlas = ExtResource("3_3pvrd")
-region = Rect2(0, 144, 16, 16)
-margin = Rect2(2.08165e-12, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fuy00"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_spqfe"]
-atlas = ExtResource("3_3pvrd")
-region = Rect2(112, 128, 16, 16)
-margin = Rect2(2.08165e-12, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11238"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
-[node name="enemy" type="CharacterBody2D" groups=["enemy"]]
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 z_index = 99
 collision_layer = 4
 collision_mask = 3
@@ -194,20 +205,17 @@ debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 debug_path_custom_point_size = 10.0
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-z_index = 200
-offset_left = -8.0
-offset_top = -40.0
-offset_right = 8.0
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 90
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
 offset_bottom = -24.0
-scale = Vector2(3, 2)
-pivot_offset = Vector2(8, 8)
-size_flags_horizontal = 4
-size_flags_vertical = 4
+pivot_offset = Vector2(32, 16)
+theme_override_styles/background = SubResource("StyleBoxFlat_fuy00")
+theme_override_styles/fill = SubResource("StyleBoxFlat_11238")
+step = 1.0
 value = 100.0
-rounded = true
-texture_under = SubResource("AtlasTexture_w626n")
-texture_progress = SubResource("AtlasTexture_spqfe")
-texture_progress_offset = Vector2(2.08165e-12, 2.08165e-12)
+show_percentage = false
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
