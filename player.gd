@@ -1,8 +1,14 @@
-extends CharacterBody2D
+extends Character
 
-
-@export var SPEED = 300.0
 @export var MAP_BOUNDS = Vector2(1920*2, 1080*2)
+
+const ATTACK_DMG_MIN: int = 5
+const ATTACK_DMG_MAX: int = 25
+const ATTACK_RATE: float = 0.4
+
+const HEALTH_MAX = 100
+
+const SPEED = 300.0
 
 var footfalls = preload("res://player_footfalls.tscn")
 var projectile = preload("res://player_projectile.tscn")
@@ -18,7 +24,6 @@ var footfalls_rate: float = 0.3
 var footfalls_distance_behind = 15
 var can_cast_footfalls = true
 
-var projectile_fire_rate: float = 0.4
 var projectile_origin_offset = 30
 var can_fire_projectile = true
 
@@ -91,8 +96,11 @@ func animate_movement():
 func fire_projectile():
 	if can_fire_projectile:
 		var mouse_position = get_global_mouse_position()
-		var projectile_instance = projectile.instantiate() as RigidBody2D
-		
+		var projectile_instance = projectile.instantiate() as PlayerProjectile
+
+		# assign origin to the projectile to use the stats of the origin character
+		projectile_instance.origin = self
+
 		var direction = global_position.direction_to(mouse_position)
 		attack_direction = direction
 		projectile_instance.look_at(direction)
@@ -107,13 +115,23 @@ func fire_projectile():
 		get_tree().get_root().add_child(projectile_instance)
 
 		can_fire_projectile = false
-		await get_tree().create_timer(projectile_fire_rate).timeout
+		await get_tree().create_timer(attack_rate).timeout
 		can_fire_projectile = true
 
 
 func _ready():
+	super()
+
 	$AnimatedSprite2D.animation = "idle"
 	$AnimatedSprite2D.play()
+	
+	attack_damage_min = ATTACK_DMG_MIN
+	attack_damage_max = ATTACK_DMG_MAX
+	
+	health_max = HEALTH_MAX
+	move_speed = SPEED
+	attack_rate = ATTACK_RATE
+
 
 func _process(_delta):
 	if Input.is_action_pressed("Shoot"):
@@ -125,11 +143,11 @@ func _process(_delta):
 	
 	animate_movement()
 
+
 func _physics_process(_delta):
 	# move
 	process_directional_input()
 	move_and_slide()
 	# clamp position to be within world bounds
 	position = position.clamp(Vector2.ZERO, MAP_BOUNDS)
-	
-	
+

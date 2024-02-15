@@ -26,4 +26,8 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_6qsw4")
 offset = Vector2(-40, -40)
 
+[node name="DecayTimer" type="Timer" parent="."]
+wait_time = 0.1
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DecayTimer" to="." method="_on_decay_timer_timeout"]

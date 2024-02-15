@@ -51,6 +51,7 @@ animations = [{
 }]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+z_index = 120
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_h6j2g")
 frame = 9
