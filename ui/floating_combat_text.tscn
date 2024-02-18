@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfvp1u5yt1jkk"]
+
+[ext_resource type="Script" path="res://ui/floating_combat_text.gd" id="1_ctkks"]
+[ext_resource type="FontFile" uid="uid://icbcvxvk8ya7" path="res://assets/font_digital_disco/DigitalDisco.ttf" id="2_kekvx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_chx7i"]
+font = ExtResource("2_kekvx")
+outline_size = 1
+outline_color = Color(0, 0, 0, 0)
+
+[node name="FloatingCombatText" type="Node2D"]
+script = ExtResource("1_ctkks")
+
+[node name="FCT" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "CRIT 15"
+label_settings = SubResource("LabelSettings_chx7i")
+horizontal_alignment = 1
+vertical_alignment = 1

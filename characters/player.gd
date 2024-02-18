@@ -4,6 +4,7 @@ extends Character
 
 const ATTACK_DMG_MIN: int = 15
 const ATTACK_DMG_MAX: int = 25
+const ATTACK_CRIT_CHANCE: int = 5
 const ATTACK_RATE: float = 0.4
 
 const HEALTH_MAX = 100
@@ -131,6 +132,9 @@ func _ready():
 	health_max = HEALTH_MAX
 	move_speed = SPEED
 	attack_rate = ATTACK_RATE
+	attack_crit_chance_percentage = ATTACK_CRIT_CHANCE
+	
+	health_values_changed()
 
 
 func _process(_delta):

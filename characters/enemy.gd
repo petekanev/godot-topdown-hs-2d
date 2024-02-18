@@ -38,6 +38,8 @@ func _ready():
 	attack_damage = 5
 	health_max = MAX_HEALTH
 	
+	health_values_changed()
+	
 	nav_agent.connect("velocity_computed", Callable(self, "move"))
 
 
