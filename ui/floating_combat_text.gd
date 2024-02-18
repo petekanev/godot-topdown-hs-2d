@@ -45,10 +45,8 @@ func show_value(position: Vector2, value: int, travel: Vector2, duration: float,
 			.set_ease(Tween.EASE_IN)
 		)
 
-	prints(Time.get_time_string_from_system())
 	tween.play()
-	
+
 	await tween.finished
-	prints(Time.get_time_string_from_system())
-	prints("tween finished", position, value)
+
 	queue_free()

@@ -1,5 +1,4 @@
 class_name FCTManager extends Node
-
 ## Floating Combat Text Manager 
 ##
 ## The class will display floating numbers relative

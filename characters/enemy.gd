@@ -9,7 +9,7 @@ const BODY_LIFETIME_SECONDS = 2
 @onready var health_bar := $HealthBar as ProgressBar
 @onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 @onready var collission_shape := $CollisionShape2D as CollisionShape2D
-@onready var fct_manager := $FCTManager
+@onready var fct_manager := $FCTManager as FCTManager
 
 var walking_left: bool = false
 var _next_velocity := Vector2.ZERO
