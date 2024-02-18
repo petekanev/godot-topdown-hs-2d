@@ -49,7 +49,7 @@ func animate_footfalls():
 		if can_cast_footfalls:
 			get_tree().get_root().add_child(footfalls_instance)
 			can_cast_footfalls = false
-			await get_tree().create_timer(footfalls_rate).timeout
+			await get_tree().create_timer(footfalls_rate, false).timeout
 			can_cast_footfalls = true
 
 
@@ -116,7 +116,7 @@ func fire_projectile():
 		get_tree().get_root().add_child(projectile_instance)
 
 		can_fire_projectile = false
-		await get_tree().create_timer(attack_rate).timeout
+		await get_tree().create_timer(attack_rate, false).timeout
 		can_fire_projectile = true
 
 

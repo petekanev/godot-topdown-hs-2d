@@ -14,6 +14,7 @@ const BODY_LIFETIME_SECONDS = 2
 var walking_left: bool = false
 var _next_velocity := Vector2.ZERO
 
+
 func set_target_position(target: Vector2):
 	$NavigationAgent2D.target_position = target
 
@@ -82,9 +83,10 @@ func _on_death():
 
 	animated_sprite.play("death")
 
-	await get_tree().create_timer(BODY_LIFETIME_SECONDS).timeout
+	await get_tree().create_timer(BODY_LIFETIME_SECONDS, false).timeout
 	
 	queue_free()
+
 
 func on_hit_fct_callback(damage, is_crit): 
 	fct_manager.show_fct(damage, is_crit)

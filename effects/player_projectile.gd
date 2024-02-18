@@ -51,7 +51,7 @@ func explode_projectile():
 
 
 func expire_projectile():
-	await get_tree().create_timer(PROJECTILE_LIFETIME_SECONDS).timeout
+	await get_tree().create_timer(PROJECTILE_LIFETIME_SECONDS, false).timeout
 	explode_projectile()
 	queue_free()
 
