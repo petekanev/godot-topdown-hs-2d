@@ -50,5 +50,5 @@ func show_value(position: Vector2, value: int, travel: Vector2, duration: float,
 	
 	await tween.finished
 	prints(Time.get_time_string_from_system())
-	prints("tween finished")
+	prints("tween finished", position, value)
 	queue_free()

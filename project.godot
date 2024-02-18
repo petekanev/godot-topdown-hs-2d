@@ -15,10 +15,6 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[autoload]
-
-HitResults="*res://characters/hit_results.gd"
-
 [display]
 
 window/size/viewport_width=1920

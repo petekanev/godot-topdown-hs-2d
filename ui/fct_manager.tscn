@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj2hahws4m8pg"]
+
+[ext_resource type="Script" path="res://ui/fct_manager.gd" id="1_aklif"]
+
+[node name="FCTManager" type="Node"]
+script = ExtResource("1_aklif")

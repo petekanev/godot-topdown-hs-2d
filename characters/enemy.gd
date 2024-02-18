@@ -1,4 +1,4 @@
-extends Character
+class_name Enemy extends Character
 
 const SPEED = 100.0
 const MAX_HEALTH = 100
@@ -9,7 +9,7 @@ const BODY_LIFETIME_SECONDS = 2
 @onready var health_bar := $HealthBar as ProgressBar
 @onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 @onready var collission_shape := $CollisionShape2D as CollisionShape2D
-
+@onready var fct_manager := $FCTManager
 
 var walking_left: bool = false
 var _next_velocity := Vector2.ZERO
@@ -34,12 +34,12 @@ func _ready():
 	super()
 
 	animated_sprite.play("idle")
-	
+
 	attack_damage = 5
 	health_max = MAX_HEALTH
 	
 	health_values_changed()
-	
+
 	nav_agent.connect("velocity_computed", Callable(self, "move"))
 
 
@@ -85,3 +85,6 @@ func _on_death():
 	await get_tree().create_timer(BODY_LIFETIME_SECONDS).timeout
 	
 	queue_free()
+
+func on_hit_fct_callback(damage, is_crit): 
+	fct_manager.show_fct(damage, is_crit)

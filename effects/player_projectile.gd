@@ -45,7 +45,7 @@ func explode_projectile():
 	explosion_instance.excluded_bodies = [body_hit]
 
 	explosion_instance.position = get_global_position()
-	get_tree().get_root().add_child(explosion_instance)
+	get_tree().get_root().call_deferred("add_child", explosion_instance)
 
 	queue_free()
 

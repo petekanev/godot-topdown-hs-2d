@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://fqhn0jhm52m2"]
+[gd_scene load_steps=27 format=3 uid="uid://fqhn0jhm52m2"]
 
 [ext_resource type="Script" path="res://characters/enemy.gd" id="1_5t7e2"]
 [ext_resource type="Texture2D" uid="uid://chy42frbjoq8q" path="res://assets/mystic_woods/sprites/characters/slime.png" id="1_f5v50"]
+[ext_resource type="PackedScene" uid="uid://dj2hahws4m8pg" path="res://ui/fct_manager.tscn" id="3_bmq6q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cecl4"]
 atlas = ExtResource("1_f5v50")
@@ -217,5 +218,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_11238")
 step = 1.0
 value = 100.0
 show_percentage = false
+
+[node name="FCTManager" parent="." instance=ExtResource("3_bmq6q")]
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

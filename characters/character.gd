@@ -20,11 +20,10 @@ class_name Character extends CharacterBody2D
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-var FloatingCombatText = preload("res://ui/floating_combat_text.tscn")
-
-@export var fct_travel = Vector2(0, -80)
-@export var fct_duration = 1
-@export var fct_spread = PI/2
+# to be implemented by inheritors
+# virtual
+func on_hit_fct_callback(damage, is_crit):
+	pass
 
 
 func health_values_changed():
@@ -36,14 +35,10 @@ func _ready():
 	rng.randomize()
 
 
-func show_value(value, crit = false):
-	var fct: FCT = FloatingCombatText.instantiate()
-	get_parent().add_child(fct)
-	fct.show_value(position, value, fct_travel, fct_duration, fct_spread, crit)
-
-
-func _on_hit(damage):
+func _on_hit(damage, is_crit):
 	var final_damage = (damage - damage_reduction_flat) - (damage * damage_reduction_percentage / 100)
+	
+	on_hit_fct_callback(final_damage, is_crit)
 	
 	health_current -= final_damage
 	
@@ -62,7 +57,7 @@ func _is_crit(crit_chance: int) -> bool:
 		return number >= 1 and number <= crit_chance
 
 
-func _compute_hit_damage_by_character(attacker: Character) -> HitResultsStruct:
+func _compute_hit_damage_by_character(attacker: Character) -> HitResults:
 	var damage := 0.0
 	
 	if attacker.attack_damage > 0:
@@ -75,7 +70,7 @@ func _compute_hit_damage_by_character(attacker: Character) -> HitResultsStruct:
 		damage += damage * attacker.attack_crit_chance_dmg
 	
 	var rounded_damage = roundi(damage)
-	var result = HitResultsStruct.new()
+	var result = HitResults.new()
 	result.damage = rounded_damage
 	result.is_crit = is_hit_crit
 	
@@ -83,19 +78,17 @@ func _compute_hit_damage_by_character(attacker: Character) -> HitResultsStruct:
 
 
 func _on_hit_by_character(attacker: Character):
-	var hit_results : HitResultsStruct = _compute_hit_damage_by_character(attacker)
+	var hit_results : HitResults = _compute_hit_damage_by_character(attacker)
 
-	show_value(hit_results.damage, hit_results.is_crit)
-
-	on_hit(hit_results.damage)
+	on_hit(hit_results.damage, hit_results.is_crit)
 
 
 func _on_death():
 	pass
 
 
-func on_hit(damage: int):
-	_on_hit(damage)
+func on_hit(damage: int, is_crit: bool):
+	_on_hit(damage, is_crit)
 
 
 func on_hit_by_character(attacking_character: Character):
@@ -107,3 +100,7 @@ func on_death():
 
 	_on_death()
 
+
+class HitResults:
+	var damage: int
+	var is_crit: bool
