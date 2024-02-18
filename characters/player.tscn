@@ -326,6 +326,7 @@ size = Vector2(32, 48)
 z_index = 100
 collision_layer = 2
 collision_mask = 5
+motion_mode = 1
 script = ExtResource("1_osapj")
 metadata/_edit_group_ = true
 

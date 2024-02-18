@@ -1,4 +1,4 @@
-extends Character
+class_name Player extends Character
 
 @export var MAP_BOUNDS = Vector2(1920*2, 1080*2)
 
@@ -122,6 +122,8 @@ func fire_projectile():
 
 func _ready():
 	super()
+	
+	Globals.player_instance = self
 
 	$AnimatedSprite2D.animation = "idle"
 	$AnimatedSprite2D.play()

@@ -25,3 +25,7 @@ func toggle_pause():
 func _unhandled_key_input(event):
 	if event.is_action_pressed("Pause"):
 		toggle_pause()
+
+
+func _on_continue_btn_pressed():
+	toggle_pause()

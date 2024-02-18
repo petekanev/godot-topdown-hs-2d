@@ -189,6 +189,8 @@ corner_radius_bottom_left = 2
 z_index = 99
 collision_layer = 4
 collision_mask = 3
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_5t7e2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
