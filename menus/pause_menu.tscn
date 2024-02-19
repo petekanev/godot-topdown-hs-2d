@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7ykwxnkh7dt8"]
+
+[ext_resource type="Script" path="res://pause_menu.gd" id="1_k7tsv"]
+[ext_resource type="FontFile" uid="uid://icbcvxvk8ya7" path="res://assets/font_digital_disco/DigitalDisco.ttf" id="2_06rng"]
+[ext_resource type="Texture2D" uid="uid://d1joiuumy2nru" path="res://assets/Edinnu_UI_asset_pack/Menu_buttons/Menu_button (15).png" id="3_ofo0c"]
+[ext_resource type="Texture2D" uid="uid://bektl7io7x4hl" path="res://assets/Edinnu_UI_asset_pack/Menu_buttons/Menu_button (17).png" id="4_e2g5n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sneni"]
+font = ExtResource("2_06rng")
+
+[sub_resource type="LabelSettings" id="LabelSettings_pe62k"]
+font = ExtResource("2_06rng")
+font_size = 32
+
+[node name="PauseMenu" type="Node2D"]
+process_mode = 3
+z_index = 1000
+z_as_relative = false
+script = ExtResource("1_k7tsv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.490196)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -32.0
+offset_right = 80.0
+text = "Press Esc to continue"
+label_settings = SubResource("LabelSettings_sneni")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PausedLabel" type="Label" parent="."]
+offset_left = -56.0
+offset_top = -64.0
+offset_right = 56.0
+offset_bottom = -32.0
+text = "Paused"
+label_settings = SubResource("LabelSettings_pe62k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="ReferenceRect" parent="."]
+offset_left = -72.0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 224.0
+
+[node name="ContinueBtn" type="Button" parent="CenterContainer"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 128.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("2_06rng")
+text = "Continue"
+icon = ExtResource("3_ofo0c")
+
+[node name="MainMenuBtn" type="Button" parent="CenterContainer"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 72.0
+offset_right = 133.0
+offset_bottom = 120.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_06rng")
+text = "Main Menu"
+icon = ExtResource("4_e2g5n")
+
+[connection signal="pressed" from="CenterContainer/ContinueBtn" to="." method="_on_continue_btn_pressed"]
+[connection signal="pressed" from="CenterContainer/MainMenuBtn" to="." method="_on_main_menu_btn_pressed"]

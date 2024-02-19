@@ -18,6 +18,10 @@ class_name Character extends CharacterBody2D
 
 @export var move_speed: int = 100
 
+@export var level_current: int = 1
+@export var experience_current: int = 0
+@export var experience_on_kill: int = 0
+
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 # to be implemented by inheritors

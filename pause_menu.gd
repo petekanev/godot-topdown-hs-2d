@@ -12,7 +12,7 @@ func toggle_pause():
 	if viewport:
 		var active_camera = viewport.get_camera_2d()
 		if active_camera:
-			var screen_center = active_camera.get_target_position()
+			var screen_center = active_camera.get_screen_center_position()
 			position = screen_center
 	
 	var scene_tree = get_tree()
@@ -29,3 +29,7 @@ func _unhandled_key_input(event):
 
 func _on_continue_btn_pressed():
 	toggle_pause()
+
+
+func _on_main_menu_btn_pressed():
+	pass # Replace with function body.
