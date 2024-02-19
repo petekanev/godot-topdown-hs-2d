@@ -19,3 +19,7 @@ func _on_enemy_timer_timeout():
 
 	var enemy_node = $EnemySpawner.get_enemy_instance(enemy_spawn_location.position, player_location)
 	add_child(enemy_node)
+
+
+func _on_game_audio_loop_finished():
+	$GameAudioLoop.play()

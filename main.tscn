@@ -704,3 +704,4 @@ volume_db = -10.0
 autoplay = true
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="finished" from="GameAudioLoop" to="." method="_on_game_audio_loop_finished"]

@@ -9,8 +9,13 @@ extends Node2D
 func _ready():
 	hide()
 	quit_confirmation_dialog.hide()
+	
+	pause_loop_audio.connect("finished", Callable(self, "_on_pause_loop_finished"))
 	pause_loop_audio.play()
 	pause_loop_audio.stream_paused = true
+
+func _on_pause_loop_finished():
+	pause_loop_audio.play()
 
 
 func toggle_pause():
