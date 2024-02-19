@@ -2,11 +2,15 @@ extends Node2D
 
 @onready var continue_btn = $CenterContainer/ContinueBtn as Button
 @onready var quit_confirmation_dialog = $QuitConfirmationDialog as ConfirmationDialog
+@onready var pause_loop_audio = $PauseLoop as AudioStreamPlayer
+@onready var ui_audio = $UIAudioPlayer as AudioStreamPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
 	quit_confirmation_dialog.hide()
+	pause_loop_audio.play()
+	pause_loop_audio.stream_paused = true
 
 
 func toggle_pause():
@@ -24,6 +28,8 @@ func toggle_pause():
 	
 	visible = next_pause_state
 	scene_tree.paused = next_pause_state
+	
+	pause_loop_audio.stream_paused = not next_pause_state
 	
 	if next_pause_state:
 		continue_btn.grab_focus()
@@ -48,3 +54,7 @@ func _on_quit_btn_pressed():
 
 func _on_quit_confirmation_dialog_confirmed():
 	get_tree().quit()
+
+
+func _on_btn_focus_entered():
+	ui_audio.play()

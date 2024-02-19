@@ -17,6 +17,10 @@ var projectile = preload("res://effects/player_projectile.tscn")
 
 @onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 
+@onready var attack_audio_player := $Sounds/AttackSound as AudioStreamPlayer
+@onready var footsteps_audio_player := $Sounds/FootstepSounds as AudioStreamPlayer
+@onready var injured_audio_player := $Sounds/InjuredSounds as AudioStreamPlayer
+
 var walking_left: bool = false
 var walking_up: bool = false
 var is_attacking: bool = false
@@ -97,6 +101,8 @@ func animate_movement():
 
 func fire_projectile():
 	if can_fire_projectile:
+		attack_audio_player.play()
+		
 		var mouse_position = get_global_mouse_position()
 		var projectile_instance = projectile.instantiate() as PlayerProjectile
 
@@ -151,6 +157,13 @@ func _process(_delta):
 		is_attacking = false
 	
 	animate_movement()
+	
+	# player is moving
+	if velocity.length() != 0 and not footsteps_audio_player.playing:
+		# apply pitch to speed up the playback when player is moving faster
+		var playback_pitch = (abs(velocity.x) + abs(velocity.y)) / 110
+		footsteps_audio_player.pitch_scale = playback_pitch
+		footsteps_audio_player.play()
 
 
 func _physics_process(_delta):

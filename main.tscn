@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cr1mtsffmrpoa"]
+[gd_scene load_steps=24 format=3 uid="uid://cr1mtsffmrpoa"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_4qgga"]
 [ext_resource type="Texture2D" uid="uid://bsv3fl1cmaysm" path="res://assets/mystic_woods/sprites/tilesets/decor_8x8.png" id="1_qby8r"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bor7ed5uvupuo" path="res://characters/player.tscn" id="8_mjme2"]
 [ext_resource type="PackedScene" uid="uid://dtbchah8gons0" path="res://mechanics/enemy_spawner.tscn" id="10_lgjfk"]
 [ext_resource type="PackedScene" uid="uid://c7ykwxnkh7dt8" path="res://menus/pause_menu.tscn" id="12_uxcfe"]
+[ext_resource type="AudioStream" uid="uid://ce85lb07pxbyf" path="res://assets/sounds/themes/Action 5 (Loop).wav" id="13_7ev3j"]
 [ext_resource type="PackedScene" uid="uid://dujlif0emy2tw" path="res://ui/player_hud.tscn" id="15_o3llm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1rc80"]
@@ -680,7 +681,6 @@ rotation = 0.459143
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 2.0
-one_shot = true
 autostart = true
 
 [node name="EnemySpawnPath" type="Path2D" parent="."]
@@ -697,5 +697,10 @@ layer = 2
 follow_viewport_enabled = true
 
 [node name="PauseMenu" parent="Pause" instance=ExtResource("12_uxcfe")]
+
+[node name="GameAudioLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_7ev3j")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]

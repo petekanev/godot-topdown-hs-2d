@@ -12,6 +12,7 @@ const EXP_ON_KILL = 3
 @onready var animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 @onready var collission_shape := $CollisionShape2D as CollisionShape2D
 @onready var fct_manager := $FCTManager as FCTManager
+@onready var death_audio_player := $DeathAudioPlayer as AudioStreamPlayer2D
 
 var walking_left: bool = false
 var _next_velocity := Vector2.ZERO
@@ -84,6 +85,7 @@ func _on_death():
 	velocity = Vector2.ZERO
 	nav_agent.velocity = Vector2.ZERO
 
+	death_audio_player.play()
 	animated_sprite.play("death")
 
 	await get_tree().create_timer(BODY_LIFETIME_SECONDS, false).timeout

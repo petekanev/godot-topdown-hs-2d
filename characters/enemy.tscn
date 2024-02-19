@@ -1,8 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://fqhn0jhm52m2"]
+[gd_scene load_steps=30 format=3 uid="uid://fqhn0jhm52m2"]
 
 [ext_resource type="Script" path="res://characters/enemy.gd" id="1_5t7e2"]
 [ext_resource type="Texture2D" uid="uid://chy42frbjoq8q" path="res://assets/mystic_woods/sprites/characters/slime.png" id="1_f5v50"]
 [ext_resource type="PackedScene" uid="uid://dj2hahws4m8pg" path="res://ui/fct_manager.tscn" id="3_bmq6q"]
+[ext_resource type="AudioStream" uid="uid://bxlwxkqntof70" path="res://assets/sounds/character/die2_monster.wav" id="4_ye85x"]
+[ext_resource type="AudioStream" uid="uid://cbr2gybxx5apn" path="res://assets/sounds/character/die_monster.wav" id="5_1oqbj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cecl4"]
 atlas = ExtResource("1_f5v50")
@@ -185,6 +187,14 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_c1s30"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("4_ye85x")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_1oqbj")
+stream_1/weight = 1.0
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 z_index = 99
 collision_layer = 4
@@ -222,5 +232,8 @@ value = 100.0
 show_percentage = false
 
 [node name="FCTManager" parent="." instance=ExtResource("3_bmq6q")]
+
+[node name="DeathAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_c1s30")
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

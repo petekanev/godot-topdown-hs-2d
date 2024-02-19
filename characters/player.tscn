@@ -1,7 +1,17 @@
-[gd_scene load_steps=44 format=3 uid="uid://bor7ed5uvupuo"]
+[gd_scene load_steps=56 format=3 uid="uid://bor7ed5uvupuo"]
 
 [ext_resource type="Texture2D" uid="uid://cja3v2ksso3co" path="res://assets/mystic_woods/sprites/characters/player.png" id="1_8kwo7"]
 [ext_resource type="Script" path="res://characters/player.gd" id="1_osapj"]
+[ext_resource type="AudioStream" uid="uid://cukj12dsvafg1" path="res://assets/sounds/character/attack_knight.wav" id="3_gneol"]
+[ext_resource type="AudioStream" uid="uid://ep3cjho08to8" path="res://assets/sounds/character/FootstepsStoneDirt1.wav" id="4_mxnuc"]
+[ext_resource type="AudioStream" uid="uid://dp7iyyru70bq1" path="res://assets/sounds/character/FootstepsStoneDirt2.wav" id="5_lpoqk"]
+[ext_resource type="AudioStream" uid="uid://dc12h4xbyg377" path="res://assets/sounds/character/FootstepsStoneDirt3.wav" id="6_p5b5l"]
+[ext_resource type="AudioStream" uid="uid://7n0571bmie20" path="res://assets/sounds/character/FootstepsStoneDirt4.wav" id="7_1vjdr"]
+[ext_resource type="AudioStream" uid="uid://dlf51ha2sjw1a" path="res://assets/sounds/character/HumanInjured1.wav" id="8_g307k"]
+[ext_resource type="AudioStream" uid="uid://bcbn4cg4ecdef" path="res://assets/sounds/character/HumanInjured2.wav" id="9_7ex43"]
+[ext_resource type="AudioStream" uid="uid://bvdjt5co8iaqg" path="res://assets/sounds/character/HumanInjured3.wav" id="10_vouha"]
+[ext_resource type="AudioStream" uid="uid://6jmushxtivsh" path="res://assets/sounds/character/HumanInjured4.wav" id="11_gxcma"]
+[ext_resource type="AudioStream" uid="uid://bgqmu0th6tgjr" path="res://assets/sounds/character/HumanInjured5.wav" id="12_qtg07"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynre4"]
 atlas = ExtResource("1_8kwo7")
@@ -322,6 +332,30 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmxr6"]
 size = Vector2(32, 48)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_we2uw"]
+streams_count = 4
+stream_0/stream = ExtResource("4_mxnuc")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_lpoqk")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_p5b5l")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_1vjdr")
+stream_3/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ccfm7"]
+streams_count = 5
+stream_0/stream = ExtResource("8_g307k")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("9_7ex43")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("10_vouha")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("11_gxcma")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("12_qtg07")
+stream_4/weight = 1.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 100
 collision_layer = 2
@@ -338,3 +372,22 @@ animation = &"attacking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cmxr6")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cmxr6")
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("3_gneol")
+volume_db = -15.0
+
+[node name="FootstepSounds" type="AudioStreamPlayer" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_we2uw")
+volume_db = -32.0
+
+[node name="InjuredSounds" type="AudioStreamPlayer" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_ccfm7")
+volume_db = -15.0
