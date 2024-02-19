@@ -6,6 +6,7 @@ const ATTACK_DMG_MIN: int = 15
 const ATTACK_DMG_MAX: int = 25
 const ATTACK_CRIT_CHANCE: int = 5
 const ATTACK_RATE: float = 0.4
+const EXP_PER_LEVEL_BASE: int = 15
 
 const HEALTH_MAX = 100
 
@@ -135,7 +136,9 @@ func _ready():
 	move_speed = SPEED
 	attack_rate = ATTACK_RATE
 	attack_crit_chance_percentage = ATTACK_CRIT_CHANCE
+	experience_needed_per_level_base = EXP_PER_LEVEL_BASE
 	
+	grant_experience(0)
 	health_values_changed()
 
 

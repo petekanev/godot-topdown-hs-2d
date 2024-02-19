@@ -1,8 +1,12 @@
 extends Node2D
 
+@onready var continue_btn = $CenterContainer/ContinueBtn as Button
+@onready var quit_confirmation_dialog = $QuitConfirmationDialog as ConfirmationDialog
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
+	quit_confirmation_dialog.hide()
 
 
 func toggle_pause():
@@ -20,6 +24,9 @@ func toggle_pause():
 	
 	visible = next_pause_state
 	scene_tree.paused = next_pause_state
+	
+	if next_pause_state:
+		continue_btn.grab_focus()
 
 
 func _unhandled_key_input(event):
@@ -33,3 +40,11 @@ func _on_continue_btn_pressed():
 
 func _on_main_menu_btn_pressed():
 	pass # Replace with function body.
+
+
+func _on_quit_btn_pressed():
+	quit_confirmation_dialog.show()
+
+
+func _on_quit_confirmation_dialog_confirmed():
+	get_tree().quit()

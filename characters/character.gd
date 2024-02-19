@@ -21,6 +21,8 @@ class_name Character extends CharacterBody2D
 @export var level_current: int = 1
 @export var experience_current: int = 0
 @export var experience_on_kill: int = 0
+@export var experience_needed_per_level_base: int = 10000
+@export var experience_to_next_level_total = experience_needed_per_level_base
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -37,6 +39,8 @@ func health_values_changed():
 
 func _ready():
 	rng.randomize()
+
+	grant_experience(experience_current)
 
 
 func _on_hit(damage, is_crit):
@@ -82,9 +86,15 @@ func _compute_hit_damage_by_character(attacker: Character) -> HitResults:
 
 
 func _on_hit_by_character(attacker: Character):
+	if not is_alive:
+		return
+
 	var hit_results : HitResults = _compute_hit_damage_by_character(attacker)
 
 	on_hit(hit_results.damage, hit_results.is_crit)
+	
+	if not is_alive:
+		attacker.grant_experience(experience_on_kill)
 
 
 func _on_death():
@@ -103,6 +113,31 @@ func on_death():
 	is_alive = false
 
 	_on_death()
+
+
+func _get_experience_needed_for_levelup(current_level: int):
+	return experience_needed_per_level_base * pow(current_level, 2)
+
+
+func grant_experience(experience: int = 0):
+	experience_current += experience
+	experience_to_next_level_total = _get_experience_needed_for_levelup(level_current)
+
+	var exp_to_next_level = experience_current - experience_to_next_level_total
+
+	if exp_to_next_level >= 0:
+		on_level_up()
+		experience_current = 0
+		# support multiple levelups to occur
+		grant_experience(exp_to_next_level)
+
+
+func _on_level_up():
+	level_current += 1
+
+
+func on_level_up():
+	_on_level_up()
 
 
 class HitResults:

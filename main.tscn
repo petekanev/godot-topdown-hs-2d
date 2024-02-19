@@ -680,6 +680,7 @@ rotation = 0.459143
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 autostart = true
 
 [node name="EnemySpawnPath" type="Path2D" parent="."]

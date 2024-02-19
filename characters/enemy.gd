@@ -4,6 +4,8 @@ const SPEED = 100.0
 const MAX_HEALTH = 100
 const BODY_LIFETIME_SECONDS = 2
 
+const EXP_ON_KILL = 3
+
 @onready var player := $"../Player"
 @onready var nav_agent := $NavigationAgent2D
 @onready var health_bar := $HealthBar as ProgressBar
@@ -38,6 +40,7 @@ func _ready():
 
 	attack_damage = 5
 	health_max = MAX_HEALTH
+	experience_on_kill = level_current * EXP_ON_KILL
 	
 	health_values_changed()
 

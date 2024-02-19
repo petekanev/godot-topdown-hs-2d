@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7ykwxnkh7dt8"]
+[gd_scene load_steps=8 format=3 uid="uid://c7ykwxnkh7dt8"]
 
 [ext_resource type="Script" path="res://pause_menu.gd" id="1_k7tsv"]
 [ext_resource type="FontFile" uid="uid://icbcvxvk8ya7" path="res://assets/font_digital_disco/DigitalDisco.ttf" id="2_06rng"]
 [ext_resource type="Texture2D" uid="uid://d1joiuumy2nru" path="res://assets/Edinnu_UI_asset_pack/Menu_buttons/Menu_button (15).png" id="3_ofo0c"]
 [ext_resource type="Texture2D" uid="uid://bektl7io7x4hl" path="res://assets/Edinnu_UI_asset_pack/Menu_buttons/Menu_button (17).png" id="4_e2g5n"]
+[ext_resource type="Texture2D" uid="uid://b728hi1il7ppd" path="res://assets/Edinnu_UI_asset_pack/Menu_buttons/Menu_button (8).png" id="5_8q3md"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sneni"]
 font = ExtResource("2_06rng")
@@ -66,6 +67,7 @@ offset_left = 16.0
 offset_top = 8.0
 offset_right = 128.0
 offset_bottom = 56.0
+focus_neighbor_top = NodePath("../QuitBtn")
 theme_override_fonts/font = ExtResource("2_06rng")
 text = "Continue"
 icon = ExtResource("3_ofo0c")
@@ -81,5 +83,25 @@ theme_override_fonts/font = ExtResource("2_06rng")
 text = "Main Menu"
 icon = ExtResource("4_e2g5n")
 
+[node name="QuitBtn" type="Button" parent="CenterContainer"]
+offset_left = 11.0
+offset_top = 136.0
+offset_right = 133.0
+offset_bottom = 184.0
+size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../ContinueBtn")
+theme_override_fonts/font = ExtResource("2_06rng")
+text = "Quit Game"
+icon = ExtResource("5_8q3md")
+
+[node name="QuitConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(462, 106)
+extend_to_title = true
+dialog_text = "You are about to close the game and forfeit your progress. Are you sure you want to close the game?"
+dialog_autowrap = true
+
 [connection signal="pressed" from="CenterContainer/ContinueBtn" to="." method="_on_continue_btn_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuBtn" to="." method="_on_main_menu_btn_pressed"]
+[connection signal="pressed" from="CenterContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="confirmed" from="QuitConfirmationDialog" to="." method="_on_quit_confirmation_dialog_confirmed"]
